@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<div class="post">
+  <h1 class="post-title">{{ page.title }}</h1>
+  <p style="text-align:left;">
+      {{ page.date | date_to_string }}
+      <span style="float:right;">
+          {% if post %}
+          {% assign tags = post.tags %}
+        {% else %}
+          {% assign tags = page.tags %}
+        {% endif %}
+        {% for tag in tags %}
+        <a href="{{site.baseurl}}/tags/#{{tag | downcase | slugify}}">[{{tag}}]</a>
+        {% unless forloop.last %}&nbsp;{% endunless %}
+        {% endfor %}
+      </span>
+      </p>
+  {{ content }}
+</div>
+
+
+<div class="pagination">
+  {% if page.previous %}
+    <a class="pagination-item older" href="{{ site.baseurl }}{{ page.previous.url }}" title="{{ page.previous.title }}">Older</a>
+  {% else %}
+    <span class="pagination-item older">Older</span>
+  {% endif %}
+  {% if page.next %}
+    <a class="pagination-item newer" href="{{ site.baseurl }}{{ page.next.url }}" title="{{ page.next.title }}">Newer</a>
+  {% else %}
+    <span class="pagination-item newer">Newer</span>
+  {% endif %}
+</div>
